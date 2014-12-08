@@ -29,14 +29,16 @@ class ProductController extends \BaseController {
 	
 	public function getProductSearchResult()
 	{
-		return View::make('products.index')
+		$q = Input::get('q');
+		$id = rand(1000, 7800);
+		return View::make('products.list', array('q'=> $q, 'id'=>$id))
 		->with('title', 'Product List')
 		->with('pname', 'Search Result');
 	}
 	
-	public function getProductDetails()
+	public function getProductDetails($id)
 	{
-		return View::make('products.index')
+		return View::make('products.details', array('id'=>$id))
 		->with('title', 'Product List')
 		->with('pname', 'Product Details');
 	}

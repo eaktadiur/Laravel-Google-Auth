@@ -25,6 +25,10 @@
                                         <input style="float:right;" type="submit" name="submit" value="Add User"> --></td>
                                     </tr>
                     
+                    <tr>
+                    <td>{{ HTML::linkRoute('get-product-details', $q, $id, array('class'=>'btn') ) }}</td>               
+                    </tr>
+                   
                                 </table>
                                 {{ Form::close() }}
                             </td>
