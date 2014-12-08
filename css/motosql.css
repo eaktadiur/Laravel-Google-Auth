@@ -1,0 +1,158 @@
+body{
+	height: 100%;
+    font-family: arial,sans-serif;
+    font-size: medium;
+}
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+}
+.push{
+	height:60px; /* '.push' must be the same height as 'footer' */
+}
+.footer{ 
+	border-top: 1px solid #ebebeb;
+	color: #ababab;
+	font-size: 12px;
+	line-height: 40px;
+	height:60px; /* '.push' must be the same height as 'footer' */
+}
+a:link{
+        text-decoration:none;
+        color:#1e0fbe;
+}
+a:hover{
+        text-decoration:underline;
+        color:#1e0fbe;
+}
+a:active{
+        text-decoration:underline;
+        color:#1e0fbe;
+}
+a:visited{
+        text-decoration:none;
+        color:#1e0fbe;
+}
+ul li{
+        list-style-type:none;
+        font-size:small;
+}
+p{
+        font-size:small;
+}
+h1{
+        font-size:x-large;
+}
+h2{
+        font-size:large;
+}
+#productSearch{
+        background: #f1f1f1;
+        left: 0;
+        min-width: 1069px;
+        position: absolute;
+        top: 0;
+        -webkit-user-select: none;
+        height: 60px;
+        width: 100%;
+}
+#topNav{
+        top:60px;
+        min-width: 980px;
+        background: #fff;
+        color: #666;
+        outline-width: 0;
+        outline: none;
+        position: relative;
+        height: 33px;
+        border-bottom: 1px solid #ebebeb;
+        padding: 0;
+}
+#searchForm{
+        margin: 17px 0 0 15px;
+}
+#siteTitle{
+        float:right;
+}
+#searchForm input{
+        height: 22px;
+        padding-left: 6px;
+}
+.back-to-top{
+        position: fixed;
+        bottom: 60px;
+        right: 0px;
+        text-decoration: none;
+        color: #000000;
+        background-color: rgba(215, 215, 215, 0.80);
+        font-size: 12px;
+        padding: 1em;
+        display: none;
+}
+.back-to-top:hover{
+        background-color: rgba(155, 155, 155, 0.50);
+}
+#resultStats{
+        margin-top:75px;
+        color:#999;
+        font-size:13px;
+        padding-left:2px;
+}
+#queryResults{
+        text-transform: uppercase;
+}
+#queryResults a:visited{
+        color: #609;
+}
+#queryResults ul li{
+        padding:10px 0 10px;
+}
+#queryResults ul li.odd{
+}
+#queryResults ul li.even{
+}
+#headerLogo{
+        float:left;
+        margin: 10px 25px 10px 24px;
+}
+.green{
+        color:#31B404!important;
+}
+.red{
+        color:#ff0000!important;
+}
+.navLink a{
+        display: inline-block;
+        float: left;
+        white-space: nowrap;
+        margin: 10px 18px 0 4px;
+        font-size: small;
+}
+.navLink span{
+        display: inline-block;
+        float: left;
+        white-space: nowrap;
+        margin: 10px 18px 0 4px;
+        font-size: small;
+}
+.ui-autocomplete{
+        max-height: 138px;
+        max-width: 447px;
+        overflow-y: hidden;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete{
+        height: 138px;
+        width: 447px;
+}
+#loginMessage{
+	color:red;
+	font-size:small;
+	font-weight:bold;
+	text-align:center;
+}
