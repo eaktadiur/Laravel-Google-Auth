@@ -14,7 +14,6 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="{{ URL::route('get-product-search') }}">Search</a></li>
         <li><a href="{{ URL::route('user-list') }}">User List</a></li>
         <li><a href="{{ URL::route('user-create') }}">New User</a></li>
         <li><a href="{{ URL::route('get-product-search') }}">Search</a></li>

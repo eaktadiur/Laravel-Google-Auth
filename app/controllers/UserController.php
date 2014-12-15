@@ -119,7 +119,13 @@ class UserController extends \BaseController {
 		$oauth = new Hybrid_Auth(app_path().'/config/gm_auth.php');
 		$provider = $oauth->authenticate('Google');
 		$profile = $provider->getUserProfile();
-		
+			
+		$user_contacts = $provider->getUserContacts();
+
+			print_r($provider);
+			echo '===<br />===<br />===<br />';
+			echo '<pre>';
+			print_r($user_contacts);
 		$user = User::where('email', '=', $profile->email);
 		if($user->count())
 		{

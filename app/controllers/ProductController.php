@@ -30,8 +30,8 @@ class ProductController extends \BaseController {
 	public function getProductSearchResult()
 	{
 		$q = Input::get('q');
-		$id = rand(1000, 7800);
-		return View::make('products.list', array('q'=> $q, 'id'=>$id))
+		$data  = ProductMaster::products($q);
+		return View::make('products.list', array('data'=> $data, 'q'=>$q, 'ser'=>1 ))
 		->with('title', 'Product List')
 		->with('pname', 'Search Result');
 	}

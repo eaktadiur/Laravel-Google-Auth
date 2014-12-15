@@ -7,7 +7,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"way/generators": "~2.0",
-		"hybridauth/hybridauth":"dev-master"
+		"hybridauth/hybridauth":"dev-master",
 	},
 	"autoload": {
 		"classmap": [
