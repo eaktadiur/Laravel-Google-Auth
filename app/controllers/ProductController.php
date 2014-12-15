@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class ProductController extends \BaseController {
 
@@ -317,4 +317,4 @@ public function getProductDetails($id)
 	->with('pname', 'Product Details');
 }
 
-}
+} 
