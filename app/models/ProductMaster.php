@@ -45,6 +45,8 @@ class ProductMaster extends \Eloquent {
     {
         foreach ($attributes as $attribute) {
         $label = ucwords($attribute);
+        
+        
         $cpsa_query = "INSERT magento_cpsa_staging (
             `sku`,
             `attribute_code`,
