@@ -7,7 +7,20 @@
         {{ HTML::script('js/jquery-ui.min.js') }}
         {{ HTML::style('css/motosql.css') }}
         {{ HTML::style('css/jquery-ui.min.css') }}
-        
+        <script type="text/javascript">
+          $(document).ready(function(){
+            alert('Hello');
+
+          }); 
+
+
+            function select(elem) {
+                var sel = window.POSTSelection();
+                var range = sel.POSTRangeAt(0);
+                range.selectNode(elem);
+                sel.addRange(range);
+            }
+        </script>
     </head>
     <body>
     <div class="wrapper">

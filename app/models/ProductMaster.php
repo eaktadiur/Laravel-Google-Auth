@@ -23,11 +23,11 @@ class ProductMaster extends \Eloquent {
     							LEFT JOIN motochanic_inventory mi ON mi.product_code = pm.sku 
     							-- LEFT JOIN magento_products_inventory mpi ON mpi.sku = pm.sku 
     						WHERE 
-    							pm.sku = ?", array($q));
+    							pm.brand = ?", array($q));
     	return $data;
     }
 
-    public static getProduct($id){
+    public static function getProduct($id){
 
         $sql = "SELECT pm.sku, pm.supplier, pm.brand, pm.name, 
                                 pm.sell_price, pm.qty, 
@@ -36,8 +36,43 @@ class ProductMaster extends \Eloquent {
                                 FROM product_master pm 
                                 LEFT JOIN motochanic_inventory mi ON mi.product_code = pm.sku 
                                 LEFT JOIN magento_products_inventory mpi ON mpi.sku = pm.sku 
-                                WHERE pm.sku = :sku_name";
+                                WHERE pm.name = :sku_name";
         return 'Rajib';
 
+    }
+
+    public static function createCPSA($attributes)
+    {
+        foreach ($attributes as $attribute) {
+        $label = ucwords($attribute);
+        $cpsa_query = "INSERT magento_cpsa_staging (
+            `sku`,
+            `attribute_code`,
+            `position`,
+            `label`
+            )
+
+        SELECT
+        '$configurable_parent_sku',
+        '$attribute',
+        '$position',
+        '$label';
+        ";
+        DB::query($cpsa_query);
+        $position = $position + 1;
+
+        } # for each attribute
+    }
+
+    public static function createCPSI($sku, $configurable_parent_sku)
+    {
+        $cpsi_query = "INSERT magento_cpsi_staging (
+                `sku`,
+                `linked_sku`
+                )
+                SELECT
+                '$sku',
+                '$configurable_parent_sku' ";
+                DB::query($cpsi_query);
     }
 }

@@ -32,6 +32,8 @@ Route::get('gauth/{auth?}', array('as'=>'gmailAuth', 'uses'=>'UserController@get
 		Route::get('new/db/search', array('as'=>'get-product-search', 'uses'=>'ProductController@getProductSearch'));
 		Route::get('new/db/search/results', array('as'=>'get-product-search-result', 'uses'=>'ProductController@getProductSearchResult'));
 		Route::get('new/db/product/{id}', array('as'=>'get-product-details', 'uses'=>'ProductController@getProductDetails'));
+		Route::post('/stage-manage', array('as'=>'stage-manage', 'uses'=>'ProductController@getProductStageManage'));
+		Route::post('/stage-manage-save', array('as'=>'stage-manage-save', 'uses'=>'ProductController@postProductStageManage'));
 
 
 	});
