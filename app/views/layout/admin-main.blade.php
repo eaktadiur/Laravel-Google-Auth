@@ -40,10 +40,27 @@
 {{ HTML::script('js/plugins/dataTables/jquery.dataTables.js') }}
 {{ HTML::script('js/plugins/dataTables/dataTables.bootstrap.js') }}
 
-    <script type='text/JavaScript'>
-    $(document).ready(function() {
+<script type='text/JavaScript'>
+  $(document).ready(function() {
         //$('#dataTables-example').dataTable();
-    });
-    </script>
+        // alert(1);
+
+        $("input:text:visible:first").focus();
+        $("#addField").click( function() {
+         $("#colorFields").append('<p><label>Color <input type="text" name="colors[]" /></label></p>');
+       });
+        $("input:checkbox:not(:checked)").each(function() {
+         var column = "table ." + $(this).attr("name");
+         $(column).hide();
+       });
+        $("input:checkbox").click(function(){
+         var column = "table ." + $(this).attr("name");
+         $(column).toggle();
+       });
+        
+      });
+</script>
+
+
 </body>
 </html>

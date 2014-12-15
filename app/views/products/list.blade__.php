@@ -32,56 +32,56 @@
 
                                 </table>
                                 <div class="table-responsive">
-                                   <form action="stage-mage.php" method="post">
-                                   <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                 <form action="stage-mage.php" method="post">
+                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" onclick="checkAll(this)"> 
                                                     <span style="font-size:12px;">Select All - </span>
                                                     <input type="submit" name="StageSubmit" value="Stage" /></th>
-                                                <th>Ser.</th>
-                                                <th>Code</th>
-                                                <th>Name</th>
-                                                <th>Price</th>
-                                                <th>Qty Available</th>
-                                                <th>Date Added</th>
-                                                <th>Action</th>
+                                                    <th>Ser.</th>
+                                                    <th>Code</th>
+                                                    <th>Name</th>
+                                                    <th>Price</th>
+                                                    <th>Qty Available</th>
+                                                    <th>Date Added</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody> 
+                                             <!-- @foreach ($data['matches'] as $product) -->
+                                             @foreach ($data as $row)
+                                             <!-- <?php $row = ProductMaster::getProduct($product->id);  ?> -->
+                                             <tr>
+                                                <td><INPUT TYPE="CHECKBOX" NAME="sku_{{ $skunum++ }}"   VALUE="{{ $ID }}" id="{{ $ID }}  "><span onclick="select(this);"></td>
+                                                <td width='80'>{{$ser++ }}</td>
+                                                <td>{{ $row->sku }}</td>
+                                                <td>{{ $row->name.' '.$row->name }}</td>
+                                                <td>{{ $row->sell_price }}</td>
+                                                <td>{{ $row->qty }}</td>
+                                                <td>{{ $row->date_added }}</td>
+                                                <td><a href="http://www.motochanic.com/' . {{ $row->date_added }} . '" target=\"_blank\">Motochanic.com <img src="images/new-window-icon.png" /></a></td>
                                             </tr>
-                                        </thead>
-                                        <tbody> 
-                                           <!-- @foreach ($data['matches'] as $product) -->
-                                           @foreach ($data as $row)
-                                           <!-- <?php $row = ProductMaster::getProduct($product->id);  ?> -->
-                                           <tr>
-                                            <td><INPUT TYPE="CHECKBOX" NAME="sku_{{ $skunum++ }}"   VALUE="{{ $ID }}" id="{{ $ID }}  "><span onclick="select(this);"></td>
-                                            <td width='80'>{{$ser++ }}</td>
-                                            <td>{{ $row->sku }}</td>
-                                            <td>{{ $row->name.' '.$row->name }}</td>
-                                            <td>{{ $row->sell_price }}</td>
-                                            <td>{{ $row->qty }}</td>
-                                            <td>{{ $row->date_added }}</td>
-                                            <td><a href="http://www.motochanic.com/' . {{ $row->date_added }} . '" target=\"_blank\">Motochanic.com <img src="images/new-window-icon.png" /></a></td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
                             </div>
-                            <!-- /.table-responsive -->
-                        </div>
-<script type="text/javascript">
-            function select(elem) {
-                var sel = window.getSelection();
-                var range = sel.getRangeAt(0);
-                range.selectNode(elem);
-                sel.addRange(range);
-            }
-            function checkAll(bx) {
-                var cbs = document.getElementsByTagName('input');
-                for(var i=0; i < cbs.length; i++) {
-                    if(cbs[i].type == 'checkbox') {
-                        cbs[i].checked = bx.checked;
-                    }
-                }
-            }
-        </script>
-                        @stop
+                            <script type="text/javascript">
+                                function select(elem) {
+                                    var sel = window.getSelection();
+                                    var range = sel.getRangeAt(0);
+                                    range.selectNode(elem);
+                                    sel.addRange(range);
+                                }
+                                function checkAll(bx) {
+                                    var cbs = document.getElementsByTagName('input');
+                                    for(var i=0; i < cbs.length; i++) {
+                                        if(cbs[i].type == 'checkbox') {
+                                            cbs[i].checked = bx.checked;
+                                        }
+                                    }
+                                }
+                            </script>
+                            @stop

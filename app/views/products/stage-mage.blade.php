@@ -10,30 +10,30 @@
 	if(isset($post['StageSubmit'])){
 		echo "<h1>Add a Product</h1>";
 		echo '<a href="' . $_SERVER['HTTP_REFERER'] . '">Go Back</a>';
-	?>
+		?>
 		<form action="{{ URL::route('stage-manage-save') }}" method="post">
-	<?php
-		$brand_result = DB::select("SELECT `brand` FROM `product_master` where brand != '' and brand not regexp '^[0-9 (]+' GROUP BY `brand` ORDER BY `brand`");
+			<?php
+			$brand_result = DB::select("SELECT `brand` FROM `product_master` where brand != '' and brand not regexp '^[0-9 (]+' GROUP BY `brand` ORDER BY `brand`");
 
-			
+				
 			//$brand_result = mysqli_query($brand_query) or die('<p>Error, query failed</p>');
 
-			echo '<table border="0" cellspacing="0" cellpadding="5">
-			<tr>
-			<td><input type="checkbox" name="boot_sizes_us" /> Show US Boot Sizes</td>
-			<td><input type="checkbox" name="youth_boot_sizes_us" /> Show US Youth Boot Sizes</td>
-			<td><input type="checkbox" name="one_through_twenty" /> Show 1 - 20 Sizes</td></td>
-			</tr>
-			<tr>
-			<td><input type="checkbox" name="standard_sizes" /> Show 2XS-4XL Sizes</td>
-			<td><input type="checkbox" name="eu_sizes" /> Show EU Sizes 44-64</td>
-			<td><input type="checkbox" name="boot_sizes" /> Show EU Boot Sizes</td>
-			</tr>
-			<tr>
-			<td><input type="checkbox" name="youth_boot_sizes" /> Show EU Youth Boot Sizes</td>
-			<td><input type="checkbox" name="us_pant_sizes" /> Show US Pant Sizes 28-44</td>
-			<td>&nbsp;</td>
-			</tr>
+				echo '<table border="0" cellspacing="0" cellpadding="5">
+				<tr>
+					<td><input type="checkbox" name="boot_sizes_us" /> Show US Boot Sizes</td>
+					<td><input type="checkbox" name="youth_boot_sizes_us" /> Show US Youth Boot Sizes</td>
+					<td><input type="checkbox" name="one_through_twenty" /> Show 1 - 20 Sizes</td></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="standard_sizes" /> Show 2XS-4XL Sizes</td>
+					<td><input type="checkbox" name="eu_sizes" /> Show EU Sizes 44-64</td>
+					<td><input type="checkbox" name="boot_sizes" /> Show EU Boot Sizes</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="youth_boot_sizes" /> Show EU Youth Boot Sizes</td>
+					<td><input type="checkbox" name="us_pant_sizes" /> Show US Pant Sizes 28-44</td>
+					<td>&nbsp;</td>
+				</tr>
 			</table><br />';
 
 			echo '<table border="0" cellspacing="0" cellpadding="4" style="border: #ccc;border-style: solid;border-width: 2px;">';
@@ -182,13 +182,13 @@
 
 
 
-			<input type=\"hidden\" name=\"variations[" . $i . "][sku]\" value=\"" . $sku . "\" />
-			<input type=\"hidden\" name=\"variations[" . $i . "][qty]\" value=\"" . $qty . "\" />
-			<input type=\"hidden\" name=\"sell_prices[" . $i . "]\" value=\"" . $sell_price . "\" />
-			<input type=\"hidden\" name=\"msrps[" . $i . "]\" value=\"" . $msrp . "\" />
-			<input type=\"hidden\" name=\"sale_prices[" . $i . "]\" value=\"" . $sale_price . "\" />
-			<input type=\"hidden\" name=\"brand\" value=\"" . $brand . "\" />
-			<input type=\"hidden\" name=\"supplier\" value=\"" . $supplier . "\" />
+				<input type=\"hidden\" name=\"variations[" . $i . "][sku]\" value=\"" . $sku . "\" />
+				<input type=\"hidden\" name=\"variations[" . $i . "][qty]\" value=\"" . $qty . "\" />
+				<input type=\"hidden\" name=\"sell_prices[" . $i . "]\" value=\"" . $sell_price . "\" />
+				<input type=\"hidden\" name=\"msrps[" . $i . "]\" value=\"" . $msrp . "\" />
+				<input type=\"hidden\" name=\"sale_prices[" . $i . "]\" value=\"" . $sale_price . "\" />
+				<input type=\"hidden\" name=\"brand\" value=\"" . $brand . "\" />
+				<input type=\"hidden\" name=\"supplier\" value=\"" . $supplier . "\" />
 			</td>";
 			echo '</tr>';
 			$i++;
@@ -242,12 +242,12 @@ echo "<p>Material: <select name='material'>
 echo '<input type="radio" name="skuset[0][product_kind]" value="parent" '.( ($sku_count > 2) ? "checked" : "" ).'/>Configurable
 <input type="radio" name="skuset[0][product_kind]" value="stand_alone" '.( ($sku_count == 2) ? "checked" : "" ).'/>Stand Alone (Simple)
 <p>
-<table>
-<tr>
-<td><input type="checkbox" name="preorder" value="yes">Is Pre-Order </td>
-<td class="preorder" > Pre-Order Message: <input type="text" size="60" name="preorder_available" value="Expected to ship ..."></td>
-</tr>
-</table>
+	<table>
+		<tr>
+			<td><input type="checkbox" name="preorder" value="yes">Is Pre-Order </td>
+			<td class="preorder" > Pre-Order Message: <input type="text" size="60" name="preorder_available" value="Expected to ship ..."></td>
+		</tr>
+	</table>
 </p>';
 
 
@@ -259,21 +259,5 @@ echo '<p><input type="submit" name="StageSubmit" value="Continue" /></p>';
 };
 
 ?>
-<script>
-		// $(document).ready(function() {
-		// 	$("input:text:visible:first").focus();
-		// 	$("#addField").click( function() {
-		// 		$("#colorFields").append('<p><label>Color <input type="text" name="colors[]" /></label></p>');
-		// 	});
-		// 	$("input:checkbox:not(:checked)").each(function() {
-		// 		var column = "table ." + $(this).attr("name");
-		// 		$(column).hide();
-		// 	});
-		// 	$("input:checkbox").click(function(){
-		// 		var column = "table ." + $(this).attr("name");
-		// 		$(column).toggle();
-		// 	});
-		// });
-	</script>
 @stop
 
