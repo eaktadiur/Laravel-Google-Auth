@@ -45,24 +45,22 @@
                                             </tr>
                                         </thead>
                                         <tbody> 
-                                         @foreach ($data as $product)
-                                         <tr>
+                                           @foreach ($data['matches'] as $product)
+                                           <?php $row = ProductMaster::getProduct($product->id);  ?>
+                                           <tr>
                                             <td width='80'>{{$ser++ }}</td>
-                                            <td>{{ $product->sku }}</td>
-                                            <td>{{ $product->name.' '.$product->name }}</td>
-                                            <td>{{ $product->sell_price }}</td>
-                                            <td>{{ $product->qty }}</td>
-                                            <td>{{ $product->date_added }}</td>
-                                            <td><a href="http://www.motochanic.com/' . {{ $product->date_added }} . '" target=\"_blank\">Motochanic.com <img src="images/new-window-icon.png" /></a></td>
+                                            <td>{{ $row->sku }}</td>
+                                            <td>{{ $row->name.' '.$row->name }}</td>
+                                            <td>{{ $row->sell_price }}</td>
+                                            <td>{{ $row->qty }}</td>
+                                            <td>{{ $row->date_added }}</td>
+                                            <td><a href="http://www.motochanic.com/' . {{ $row->date_added }} . '" target=\"_blank\">Motochanic.com <img src="images/new-window-icon.png" /></a></td>
                                         </tr>
                                         @endforeach
-
-
                                     </tbody>
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
-                            
                         </div>
 
                         @stop
