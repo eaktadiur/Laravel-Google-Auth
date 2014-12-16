@@ -27,7 +27,7 @@
 		->with('pname', 'Search Product');
 	}
 	
-	public function getProductSearchResult_()
+	public function getProductSearchResult()
 	{
 		$q = Input::get('q');
 		
@@ -75,15 +75,6 @@
 		$sphinx_time		= $sphinx_results["time"];
 
 
-		// echo "<pre>";
-
-		// print_r($sphinx_results);
-
-		// die();
-
-
-
-
 		// $data  = ProductMaster::products($q);
 		return View::make('products.list', array('data'=> $sphinx_results, 'q'=>$q, 'ser'=>1 ))
 		->with('title', 'Product List')
@@ -91,7 +82,7 @@
 	}
 	
 	
-	public function getProductSearchResult()
+	public function getProductSearchResult_()
 	{
 		$q = Input::get('q');		
 		$data  = ProductMaster::products($q);
