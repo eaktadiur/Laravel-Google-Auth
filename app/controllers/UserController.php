@@ -99,18 +99,13 @@ class UserController extends \BaseController {
 	/*
 		* this is the code for Gmail login
 	*/
-	public function getGmailLogin( $auth=NULL )
-	{
+	public function getGmailLogin( $auth=NULL ){
 
-		if($auth =='auth')
-		{
+		if($auth =='auth'){
 			
-			try
-			{
+			try	{
 				Hybrid_Endpoint::process();
-			}
-			catch(exception $e)
-			{
+			}catch(exception $e){
 				return redirect::route('gmailAuth');
 			}
 		}
@@ -122,15 +117,16 @@ class UserController extends \BaseController {
 			
 		$user_contacts = $provider->getUserContacts();
 
-			print_r($provider);
-			echo '===<br />===<br />===<br />';
-			echo '<pre>';
-			print_r($user_contacts);
+			// print_r($provider);
+			// echo '===<br />===<br />===<br />';
+			// echo '<pre>';
+			// print_r($user_contacts);
 		$user = User::where('email', '=', $profile->email);
 		if($user->count())
 		{
 			$user = $user->firstOrFail();	
 			$user = User::find($user['id']);
+			crypt(md5($password), '$6$rounds=500000$' . substr(md5(md5($username)), 0, 16) . '$');
 			Auth::login($user);
             if( Auth::check() ){
             	return Redirect::route('user-list')
@@ -144,11 +140,10 @@ class UserController extends \BaseController {
             }
 
 
-		}
-		else{
+		}else{
 			return Redirect::route('home')
-	            			->with('message', 'Account Not Authorized ')
-	            			->with('message_type', 'danger');	
+        			->with('message', 'Account Not Authorized ')
+        			->with('message_type', 'danger');	
 		}
 		
 		

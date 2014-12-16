@@ -48,7 +48,7 @@
 		}
 
 		$sphinx = new SphinxClient;
-		$sphinx->setServer("localhost", 8000);
+		$sphinx->setServer("localhost", 9312);
 		#$sphinx->setMatchMode(SPH_MATCH_ALL);
 		#$sphinx->SetRankingMode(SPH04);
 		$sphinx->SetLimits($offset, $limit, max($max, ($offset+$limit)));
