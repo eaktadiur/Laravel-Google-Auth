@@ -41,40 +41,26 @@ class ProductMaster extends \Eloquent {
 
     }
 
-    public static function createCPSA($attributes)
+    public static function createCPSA($attributes='')
     {
+        $configurable_parent_sku = '';
+        $position = 1;
         foreach ($attributes as $attribute) {
         $label = ucwords($attribute);
         
-        
-        $cpsa_query = "INSERT magento_cpsa_staging (
-            `sku`,
-            `attribute_code`,
-            `position`,
-            `label`
-            )
-
-        SELECT
-        '$configurable_parent_sku',
-        '$attribute',
-        '$position',
-        '$label';
-        ";
-        DB::query($cpsa_query);
-        $position = $position + 1;
-
-        } # for each attribute
+        DB::table('magento_cpsa_staging')->insert(
+            array('sku' => $configurable_parent_sku, 
+                'attribute_code' => $attribute,
+                'position' => $position,
+                'label' => $label ));
+            $position = $position + 1;
+            } 
     }
 
-    public static function createCPSI($sku, $configurable_parent_sku)
+    public static function createCPSI($sku, $linked_sku)
     {
-        $cpsi_query = "INSERT magento_cpsi_staging (
-                `sku`,
-                `linked_sku`
-                )
-                SELECT
-                '$sku',
-                '$configurable_parent_sku' ";
-                DB::query($cpsi_query);
+
+        DB::table('magento_cpsi_staging')->insert(array('sku' => $sku, 'linked_sku' => $linked_sku) );
+
     }
 }

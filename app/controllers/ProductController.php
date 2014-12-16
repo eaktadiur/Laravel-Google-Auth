@@ -27,7 +27,7 @@
 		->with('pname', 'Search Product');
 	}
 	
-	public function getProductSearchResult()
+	public function getProductSearchResult_()
 	{
 		$q = Input::get('q');
 		
@@ -91,7 +91,7 @@
 	}
 	
 	
-	public function getProductSearchResult_()
+	public function getProductSearchResult()
 	{
 		$q = Input::get('q');		
 		$data  = ProductMaster::products($q);
@@ -115,10 +115,12 @@
 		$truncate_cpsa_results = DB::table('magento_cpsa_staging')->truncate();
 		$truncate_cpsi_results = DB::table('magento_cpsi_staging')->truncate();
 
-			$product_name	= e(Input::get('product_name')); 	// check
+		$product_name	= e(Input::get('product_name'));
+			$name =  Input::get('product_name');	// check
 			$brand	= e(Input::get('brand_id')); 	// check
 			$gender	= e(Input::get('gender')); 	// check
-			$product	= e(Input::get('product_type')); // check
+			$product	= e(Input::get('product_type'));
+			$product_type = $product; // check
 			$product_kind	= e(Input::get('product_kind')); // check
 			$material	= e(Input::get('material')); // check
 			$preorder	= e(Input::get('preorder')); // check
@@ -163,161 +165,160 @@
 			// SKU SPECIFIC INFO FROM NOW ON
 
 			// Loop through sku array
-			if(count($skuset) > 0)
-			{
-				foreach ($skuset as $skus) {
+		foreach ($skuset as $skus) {
+					/*---teporary set attributes*/
+					//$attributes = $skus['attributes'];
 
-						# Do not process Attributes
-					/*Temporary manual assign values*/
-					$skus['color'] = 'green';
-					$skus['size'] = '123';
-						$skus['length'] = '9999';//side
-						$skus['lens'] = '9999';//skus
-						$skus['plates'] = '9999';//skus
-						$skus['side'] = '9999';//skus
-						$skus['type'] = '9999';//skus
-						/*--end manual assign-------*/
-						if(!array_key_exists('attributes', $skus)){
+					if(!array_key_exists('attributes', $skus))
+					{
 
 							$sku = $skus['sku'];
 							$product_kind = $skus['product_kind'];
-							if(!$color = $skus['color']) {
+							if( !array_key_exists('color', $skus) || (!$color = $skus['color'] ) )  {
 								$color = "";
 							}
-							if(!$size = $skus['size']) {
+							if(!array_key_exists('size', $skus) || (!$size = $skus['size'] ) ) {
 								$size = "";
 							}
-							if(!$length = $skus['length']) {
+							if(!array_key_exists('length', $skus) || (!$length = $skus['length'] ) ) {
 								$length = "";
 							}
-							if(!$lens = $skus['lens']) {
+							if(!array_key_exists('lens', $skus) || (!$lens = $skus['lens'] ) ) {
 								$lens = "";
 							}
-							if(!$plates = $skus['plates']) {
+							if(!array_key_exists('plates', $skus) || (!$plates = $skus['plates'] ) ) {
 								$plates = "";
 							}
-							if(!$side = $skus['side']) {
+							if(!array_key_exists('side', $skus) || (!$side = $skus['side'] ) ) {
 								$side = "";
 							}
-							if(!$type = $skus['type']) {
+							if(!array_key_exists('type', $skus) || (!$type = $skus['type'] ) ) {
 								$type = "";
 							}
 
-							switch ($product_kind) {
+							switch ($product_kind) 
+							{
 								case 'parent':
-								$product_type				= "configurable";
-								$visibility					= "Catalog, Search";
-								$name						= $product_name;
-								$sku						= ucwords(strtoupper($name));
-								$set_parent					= $sku;
-								$msrp						= $parent_msrp_min;
-								$price						= $parent_sell_min;
-								$configurable_parent_sku	= "";
-								$amconf_simple_price		= "";
+									$product_type				= "configurable";
+									$visibility					= "Catalog, Search";
+									$name						= $product_name;
+									$sku						= ucwords(strtoupper($name));
+									$set_parent					= $sku;
+									$msrp						= $parent_msrp_min;
+									$price						= $parent_sell_min;
+									$configurable_parent_sku	= "";
+									$amconf_simple_price		= "";
 									// Build Meta Description
-								if($price >= 75) {
-									$meta_description = "Purchase your ".$product_name." and get Free Shipping from Motochanic, home of ".$brand.".";
-								} else {
-									$meta_description = "Purchase your ".$product_name." from Motochanic, home of ".$brand.".";
-								}
+									if($price >= 75) {
+										$meta_description = "Purchase your ".$product_name." and get Free Shipping from Motochanic, home of ".$brand.".";
+									} else {
+										$meta_description = "Purchase your ".$product_name." from Motochanic, home of ".$brand.".";
+									}
 								break;
 								case 'child':
-								$product_type				= "simple";
-								$visibility					= "Not Visible Individually";
-								$name						= $product_name." - ".$color." ".$size." ".$length." ".$lens." ".$plates." ".$side." ".$type;
-								$name						= trim(preg_replace('!\s+!', ' ', $name));
-								$configurable_parent_sku	= $set_parent;
-								$amconf_simple_price		= "";
+									$product_type				= "simple";
+									$visibility					= "Not Visible Individually";
+									$name						= $product_name." - ".$color." ".$size." ".$length." ".$lens." ".$plates." ".$side." ".$type;
+									$name						= trim(preg_replace('!\s+!', ' ', $name));
+									$configurable_parent_sku	= $set_parent;
+									$amconf_simple_price		= "";
 									$meta_description			= ""; // Clear meta-description for child products
 									$price_array				= ""; // Build price array to track price ranges
-									break;
-									case 'stand_alone':
+								break;
+								case 'stand_alone':
 									$product_type				= "simple";
 									$visibility					= "Catalog, Search";
 									$name						= $product_name;
 									$configurable_parent_sku	= "";
 									$amconf_simple_price		= "";
-									break;
-								}
+								break;
+							}
 
-								if($product_kind != "parent") {
-									$lookup_results = DB::select(" select * from product_master where sku = '$sku' ");
-									$lookup_results = json_decode(json_encode($lookup_results),TRUE); 
+							if($product_kind != "parent")
+							{
+								$lookup_results = DB::select(" select * from product_master where sku = '$sku' ");
+								$lookup_results = json_decode(json_encode($lookup_results),TRUE); 
 
-									foreach($lookup_results as $row){
-
-										$alt_pn	= $row['alt_pn'];
-										$upc	= $row['upc'];
-										$qty						= $row['qty'];
-										$shipping_time				= "";	
-											// Pricing
-										$msrp						= floor($row['msrp']* 100)/100;
-										$price						= floor($row['msrp']* 100)/100;
-										$special_price =($row['sell_price'] == $msrp) ? "": floor($row['sell_price']* 100)/100;
-
-										$price_view					= "";
-									}
-								}
-								else
+								foreach($lookup_results as $row)
 								{
 
-									$alt_pn	= '111';
-									$upc	= '111';
-									$qty						= '111';
-									$shipping_time				= '111';
-											// Pricing
-									$msrp						= '111';
-									$price						= '111';
-									$special_price ='111';
+									$alt_pn	= $row['alt_pn'];
+									$upc	= $row['upc'];
+									$qty						= $row['qty'];
+									$shipping_time				= "";	
+									// Pricing
+									$msrp						= floor($row['msrp']* 100)/100;
+									$price						= floor($row['msrp']* 100)/100;
+									$special_price =($row['sell_price'] == $msrp) ? "": floor($row['sell_price']* 100)/100;
+
 									$price_view					= "";
 								}
+							}
+							else
+							{
+								$alt_pn	= '';
+								$upc	= '';
+								$qty	= '';
+								$shipping_time	= "";	
+									// Pricing
+								$msrp   = "";
+								$price	= '';
+								$special_price ='';
 
-							} # while lookup results
+								$price_view	= "";
+							}
 
 
-
-							// Product Details
-							$short_description	= $name;
-							$description		= $name;
-							$weight				= "";
-
-							
+								// Product Details
+								$short_description	= $name;
+								$description		= $name;
+								$weight				= "";
 							DB::table('magento_products_staging')->insert(
-							    array(
-							    	'type' => $product_type, 
-							    	'visibility' => $visibility,
-							    	'status' => $status,
-							    	'sku' => $sku,
-							    	'altsku' => $alt_pn,
-							    	'upc' => $upc,
-							    	'brand' => $brand,
-							    	'name' => $name
-							    	)
-							);
-	// 						$product_query = "INSERT magento_products_staging (
-	// 							`upc`,	`brand`,`name`,	`gender`,`product`,	`material`,	`product_status`,
-	// 							`shipping_time`,`stock.use_config_manage_stock`,`stock.manage_stock`,`stock.qty`,
-	// 							`stock.is_in_stock`,`msrp`,	`price`,`price_view`,`special_price`,`amconf_simple_price`,
-	// 							`short_description`,`description`,`meta_description`,`color`,`size`,`length`,`lens`,
-	// 							`plates`,`side`,`type`,	`weight`,`product.attribute_set`,`tax_class_id`,`product.websites`,
-	// 							`news_from_date`,`news_to_date`,`stock.use_config_backorders`,`preorder_note`,`preorder_cart_label`
-	// 							)
- // '$upc',	'$brand','$name','$gender','$product','$material','$product_status','$shipping_time',
- // '$use_config_manage_stock','$manage_stock','$qty','$is_in_stock','$msrp','$price','$price_view',
- // '$special_price','$amconf_simple_price','$short_description','$description','$meta_description',
- // '$color','$size','$length','$lens','$plates','$side','$type','$weight','$attribute_set',
- // '$tax_class_id','$website','$news_from_date','$news_to_date','$use_config_backorders',
- // '$preorder_note','$preorder_cart_label';";
- // DB::query($product_query);
+							array( 	'type' => $product_type, 
+								'visibility' => $visibility,
+								'status' => $status,
+								'sku' => $sku,
+								'altsku' => $alt_pn,
+								'upc' => $upc,
+								'brand' => $brand,
+								'name' => $name,
+								'gender' => $gender,
+								'product' => $product,
+								'material' => $material,
+								'product_status' => $product_status,
+								'shipping_time' => $shipping_time,
+								'msrp' => $msrp,
+								'price' => $price,
+								'price_view' => $price_view,
+								'amconf_simple_price' => $amconf_simple_price,
+								'short_description' => $short_description,
+								'description' => $description,
+								'meta_description' => $meta_description,
+								'color' => $color,
+								'size' => $size,
+								'length' => $length,
+								'lens' => $lens,
+								'plates' => $plates,
+								'side' => $side,
+								'type' => $type,
+								'weight' => $weight,
+								'tax_class_id' => $tax_class_id,
+								'news_from_date' => $news_from_date,
+								'news_to_date' => $news_to_date,
+								'preorder_note' => $preorder_note,
+								'preorder_cart_label' => $preorder_cart_label));
+					}
+					elseif( array_key_exists('attributes', $skus) ) // End loop through sku array
+					{
+							$attributes = str_getcsv($skus['attributes']);							
+					}
 
- //($product_kind == "child") ? User::createCPSI($sku, $configurable_parent_sku) : '';	
-
-				} // End loop through sku array
+					 ($product_kind == "child") ? ProductMaster::createCPSI($sku, $configurable_parent_sku) : '';
 			}
 
 
-
-			//is_array($attributes) ? User::createCPSA($attributes) : '';	
+	//please see this method fix the problem
+			is_array($attributes) ? ProductMaster::createCPSA($attributes) : '';	
 
 			return Redirect::route('home')->with('message', 'Product Saved Successfully!')->with('message_type', 'success');
 		}
