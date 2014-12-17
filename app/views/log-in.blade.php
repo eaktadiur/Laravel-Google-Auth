@@ -12,7 +12,11 @@
 	<!-- Bootstrap Core CSS -->
 
 </head>
-<body>
+<body><!-- 
+	<?php
+	$password = 123456;
+	$username = 'eakta';
+	echo crypt(md5($password), '$6$rounds=500000$' . substr(md5(md5($username)), 0, 16) . '$'); ?> -->
 	<table width="280" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCC" >
 		<tr>
 			

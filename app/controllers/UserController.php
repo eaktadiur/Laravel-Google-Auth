@@ -56,7 +56,8 @@ class UserController extends \BaseController {
 			$user             = new User;
 			$user->email      = $email;
 			$user->username   = $username;
-			$user->password   = Hash::make($password);
+			$user->password   = crypt(md5($password), '$6$rounds=500000$' . substr(md5(md5($username)), 0, 16) . '$');
+			//$user->password   = Hash::make($password);
 			$user->code       = $code;
 			$user->active     = $active;
 			$user->save();
@@ -122,10 +123,10 @@ class UserController extends \BaseController {
 			
 		$user_contacts = $provider->getUserContacts();
 
-			print_r($provider);
-			echo '===<br />===<br />===<br />';
-			echo '<pre>';
-			print_r($user_contacts);
+			// print_r($provider);
+			// echo '===<br />===<br />===<br />';
+			// echo '<pre>';
+			// print_r($user_contacts);
 		$user = User::where('email', '=', $profile->email);
 		if($user->count())
 		{
@@ -168,10 +169,29 @@ class UserController extends \BaseController {
 		{
 			
 			$remember = (Input::has('remember')) ? true : false;
-			$auth = Auth::attempt(array(
-					'username' => Input::get('username'),
-					'password' => Input::get('password')
-				),$remember);
+			$username = Input::get('username');
+			$password = Input::get('password');
+			$password   = crypt(md5($password), '$6$rounds=500000$' . substr(md5(md5($username)), 0, 16) . '$');
+			$user = User::where('username', '=', $username)
+							->where('password', '=', $password);
+			if($user->count())
+			{
+				$user = $user->firstOrFail();	
+				$user = User::find($user['id']);
+				Auth::login($user);
+	            if( Auth::check() ){
+	            	return Redirect::route('user-list')
+	            			->with('message', 'Sign in Successfully by googole !')
+	            			->with('message_type', 'success');
+	            }
+	            else{
+	            	return Redirect::route('user-sign-in')
+	            			->with('message', 'Unauthorised sign in')
+	            			->with('message_type', 'danger');
+	            }
+
+
+			}
             if($auth){
             	return Redirect::route('user-list')
             			->with('message', 'Sign in Successfully!')
