@@ -127,7 +127,7 @@ class UserController extends \BaseController {
 		{
 			$user = $user->firstOrFail();	
 			$user = User::find($user['id']);
-			crypt(md5($password), '$6$rounds=500000$' . substr(md5(md5($username)), 0, 16) . '$');
+			//crypt(md5($password), '$6$rounds=500000$' . substr(md5(md5($username)), 0, 16) . '$');
 			Auth::login($user);
             if( Auth::check() ){
             	return Redirect::route('user-list')
