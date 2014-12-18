@@ -85,4 +85,10 @@ function checkAll(bx) {
 }
 </script>
 
+
+<!-- <pre>
+    <?php
+   // print_r($data);
+    ?>
+</pre> -->
 @stop

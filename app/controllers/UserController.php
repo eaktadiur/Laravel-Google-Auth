@@ -178,17 +178,6 @@ class UserController extends \BaseController {
 
 			}
 
-            if($auth){
-            	return Redirect::route('user-list')
-            			->with('message', 'Sign in Successfully!')
-            			->with('message_type', 'success');
-            }else{
-            	return Redirect::route('user-sign-in')
-            			->with('message', 'Unauthorised sign in')
-            			->with('message_type', 'danger')
-            		;
-            }
-
 		}
 
 		return Redirect::route('user-sign-in')->with('message', 'Unauthorised sign in or are you activated ?');
