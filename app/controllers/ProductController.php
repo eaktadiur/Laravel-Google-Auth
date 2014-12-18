@@ -27,8 +27,7 @@
 		->with('pname', 'Search Product');
 	}
 	
-	public function getProductSearchResult()
-	{
+	public function getProductSearchResult(){
 		$q = Input::get('q');
 		
 		if(isset($_GET['p'])){

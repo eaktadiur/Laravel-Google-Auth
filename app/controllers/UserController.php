@@ -145,10 +145,7 @@ class UserController extends \BaseController {
 			return Redirect::route('home')
         			->with('message', 'Account Not Authorized ')
         			->with('message_type', 'danger');	
-		}
-		
-		
-		
+		}		
 
 	}
 
@@ -159,9 +156,7 @@ class UserController extends \BaseController {
 		
 		if($validation->fails()){
 			return Redirect::route('user-sign-in')->withErrors($validation)->withInput();
-		}
-		else
-		{
+		}else{
 			
 			$remember = (Input::has('remember')) ? true : false;
 			$username = Input::get('username');
@@ -169,14 +164,14 @@ class UserController extends \BaseController {
 			$password   = crypt(md5($password), '$6$rounds=500000$' . substr(md5(md5($username)), 0, 16) . '$');
 			$user = User::where('username', '=', $username)
 							->where('password', '=', $password);
-			if($user->count())
-			{
+			
+			if($user->count()){
 				$user = $user->firstOrFail();	
 				$user = User::find($user['id']);
 				Auth::login($user);
 	            if( Auth::check() ){
 	            	return Redirect::route('user-list')
-	            			->with('message', 'Sign in Successfully by googole !')
+	            			->with('message', 'Sign in Successfully')
 	            			->with('message_type', 'success');
 	            }
 	            else{
@@ -187,12 +182,12 @@ class UserController extends \BaseController {
 
 
 			}
+
             if($auth){
             	return Redirect::route('user-list')
             			->with('message', 'Sign in Successfully!')
             			->with('message_type', 'success');
-            }
-            else{
+            }else{
             	return Redirect::route('user-sign-in')
             			->with('message', 'Unauthorised sign in')
             			->with('message_type', 'danger')
