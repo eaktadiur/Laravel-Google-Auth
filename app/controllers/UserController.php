@@ -117,11 +117,6 @@ class UserController extends \BaseController {
 		$profile = $provider->getUserProfile();
 			
 		$user_contacts = $provider->getUserContacts();
-
-			// print_r($provider);
-			// echo '===<br />===<br />===<br />';
-			// echo '<pre>';
-			// print_r($user_contacts);
 		$user = User::where('email', '=', $profile->email);
 		if($user->count())
 		{

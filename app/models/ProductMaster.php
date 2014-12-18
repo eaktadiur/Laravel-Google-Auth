@@ -28,17 +28,16 @@ class ProductMaster extends \Eloquent {
 
     public static function getProduct($id){
 
-        $data = DB::select("SELECT pm.sku, pm.supplier, pm.brand, pm.name, 
-            pm.sell_price, pm.qty, 
-            mi.product_code, mpi.url_key, pm.date_added 
-
-            FROM product_master pm 
-            LEFT JOIN motochanic_inventory mi ON mi.product_code = pm.sku 
-            LEFT JOIN magento_products_inventory mpi ON mpi.sku = pm.sku 
-            WHERE pm.name = '$id'");
-        $data = !empty($data) ? $data[0] : '';
-
-        return $data;
+       $lookup_results = DB::select(" SELECT pm.sku, pm.supplier, pm.brand, pm.name, 
+          pm.sell_price, pm.qty, mi.product_code, mpi.url_key, pm.date_added 
+        FROM 
+          product_master pm 
+          LEFT JOIN motochanic_inventory mi ON mi.product_code = pm.sku 
+          LEFT JOIN magento_products_inventory mpi ON mpi.sku = pm.sku 
+        WHERE 
+         pm.sku = '$id' ");
+       $data = json_decode(json_encode($lookup_results),TRUE);
+       return $data;
 
     }
 

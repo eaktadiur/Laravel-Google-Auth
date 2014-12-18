@@ -1,11 +1,11 @@
 <?php
 return array(
-		"base_url" => "http://localhost:8000/gauth/auth",
+		"base_url" => "https://db.motochanic.com/gauth",
 		"providers" => array(
 				"Google" => array(
 					"enabled" => true,
-					"keys" => array("id"=>"269501769233-7r10v7qmnjua6p3qvver3d673v1s0vcn.apps.googleusercontent.com", 
-									"secret"=>"Ve8eq_fd1zD4ec7QyVkyqZbi"),
+					"keys" => array("id"=>"705406263656-3e0lh0s2k0iobuvdk9t5q3ett7fbeg9l.apps.googleusercontent.com", 
+									"secret"=>"Xpf9CZfWv9skkIJVKXJ5P62y"),
 					"scope" => ""
 					)
 			)
